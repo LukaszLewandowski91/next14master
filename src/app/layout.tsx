@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import { ActiveLink } from "@/ui/atoms/ActiveLink";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,6 +18,16 @@ export default function RootLayout({
 	return (
 		<html lang="pl">
 			<body className={inter.className}>
+				<nav>
+					<ul className=" mt-2 flex justify-center space-x-4">
+						<li>
+							<ActiveLink href="/">Home</ActiveLink>
+						</li>
+						<li>
+							<ActiveLink href="/products">Products</ActiveLink>
+						</li>
+					</ul>
+				</nav>
 				<section className="max-x-md mx-auto p-12 sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
 					{children}
 				</section>
