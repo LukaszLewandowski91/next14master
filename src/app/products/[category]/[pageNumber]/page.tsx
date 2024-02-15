@@ -1,7 +1,7 @@
 export async function generateStaticParams({ params }: { params: { category: string } }) {
 	if (params.category === "t-shirts") {
 		return [{ pageNumber: "1" }, { pageNumber: "2" }];
-	} else if (params.category === "boots") {
+	} else {
 		return [{ pageNumber: "1" }, { pageNumber: "2" }, { pageNumber: "3" }];
 	}
 }
