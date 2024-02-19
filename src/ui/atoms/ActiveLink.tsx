@@ -13,18 +13,21 @@ export const ActiveLink = ({
 	children,
 	className,
 	activeClassName,
+	exact,
 }: {
 	href: Route;
 	children: ReactNode;
 	className: string;
 	activeClassName: string;
+	exact: boolean;
 }) => {
 	const pathname = usePathname();
 	const isActive = pathname === href;
+
 	return (
 		<Link
 			href={href}
-			className={clsx(isActive ? activeClassName : className)}
+			className={clsx(isActive || exact ? activeClassName : className)}
 			aria-current={isActive ? "page" : undefined}
 		>
 			{children}
