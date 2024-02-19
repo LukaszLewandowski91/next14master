@@ -7,7 +7,8 @@ export default async function ProductsPagePagination({
 }: {
 	params: { pageNumber: string };
 }) {
-	const products = await getProductsList(parseInt(params.pageNumber) - 1);
+	const offset = parseInt(params.pageNumber) - 1;
+	const products = await getProductsList(20, offset);
 	const total = products.length;
 	const numberOfPages = Math.ceil(total / 4);
 
