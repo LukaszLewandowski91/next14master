@@ -25,7 +25,7 @@ export default function RootLayout({
 								href="/"
 								className="text-blue-400 hover:text-blue-600"
 								activeClassName="text-blue-600 underline"
-								exact={false}
+								exact={true}
 							>
 								Home
 							</ActiveLink>

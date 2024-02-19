@@ -6,8 +6,6 @@ import { usePathname } from "next/navigation";
 import { type ReactNode } from "react";
 import { type Route } from "next";
 
-`text-blue-400 hover:text-blue-600`;
-
 export const ActiveLink = ({
 	href,
 	children,
@@ -15,20 +13,26 @@ export const ActiveLink = ({
 	activeClassName,
 	exact,
 }: {
-	href: Route;
+	href: string;
 	children: ReactNode;
 	className: string;
 	activeClassName: string;
 	exact: boolean;
 }) => {
 	const pathname = usePathname();
-	const isActive = pathname === href;
+	const matchedPath = href;
+
+	const isActive =
+		(matchedPath &&
+			pathname &&
+			(exact ? pathname === matchedPath : pathname.startsWith(matchedPath))) ||
+		false;
 
 	return (
 		<Link
-			href={href}
-			className={clsx(isActive || exact ? activeClassName : className)}
-			aria-current={isActive ? "page" : undefined}
+			href={href as Route}
+			className={clsx(isActive ? activeClassName : className)}
+			aria-current={isActive ? isActive : undefined}
 		>
 			{children}
 		</Link>
