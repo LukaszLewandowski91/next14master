@@ -6,9 +6,9 @@ import { ActiveLink } from "@/ui/atoms/ActiveLink";
 const NavLinks = [
 	{ href: "/", label: "Home", exact: true },
 	{ href: "/products", label: "All", exact: false },
-	// { href: "/categories/t-shirts", label: "T-shirts" },
-	// { href: "/categories/hoodies", label: "Hoodies" },
-	// { href: "/categories/accessories", label: "Accessories" },
+	{ href: "/categories/t-shirts", label: "T-shirts" },
+	{ href: "/categories/hoodies", label: "Hoodies" },
+	{ href: "/categories/accessories", label: "Accessories" },
 ];
 
 export const Nav = () => {

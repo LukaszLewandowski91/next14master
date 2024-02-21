@@ -1,10 +1,10 @@
 import { CheckCheck } from "lucide-react";
 
 import { formatMoney } from "@/utils";
-import { type ProductItemType } from "@/ui/types";
+import { type ProductListItemFragment } from "@/gql/graphql";
 
 type SingleProductDescriptionProps = {
-	product: ProductItemType;
+	product: ProductListItemFragment;
 };
 
 export const ProductDescription = ({
