@@ -15,8 +15,6 @@ export const SearchInput = () => {
 	useEffect(() => {
 		if (debouncedSearch.length > 1) {
 			router.push(`/search?query=${debouncedSearch}`);
-		} else {
-			router.push("/products");
 		}
 	}, [debouncedSearch, search]);
 
