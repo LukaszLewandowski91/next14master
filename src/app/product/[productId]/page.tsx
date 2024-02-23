@@ -34,7 +34,7 @@ export default async function SingleProductPage({ params }: { params: { productI
 	}
 	return (
 		<>
-			<article className="grid grid-cols-1 gap-4 sm:grid-cols-2" aria-busy="true">
+			<article className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 				{product.images[0] && <ProductImage src={product.images[0]?.url} alt={product.name} />}
 				<ProductDescription product={product} />
 				<aside className="space-y-4">
