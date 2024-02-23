@@ -36,6 +36,9 @@ export default async function CategoriesPage({
 
 	return (
 		<>
+			<h1 className="pb-20 text-4xl font-extrabold first-letter:uppercase" role="heading">
+				{products[0]?.categories[0]?.name}
+			</h1>
 			<ProductList
 				products={products.slice(
 					(parseInt(params.pageNumber) - 1) * 4,
