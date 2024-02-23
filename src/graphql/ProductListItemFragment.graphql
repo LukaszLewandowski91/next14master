@@ -4,6 +4,7 @@ fragment ProductListItem on Product {
 	description
 	categories {
 		name
+		slug
 	}
 	images {
 		url

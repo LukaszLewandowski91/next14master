@@ -2,6 +2,26 @@ import { notFound } from "next/navigation";
 import { getProductsByCategorySlug } from "@/api/products";
 import { ProductList } from "@/ui/organisms/ProductList";
 import { Pagination } from "@/ui/organisms/Pagination";
+import { getCategoryNameBySlug } from "@/api/categories";
+
+export const generateMetadata = async ({
+	params,
+}: {
+	params: { category: string; pageNumber: string };
+}) => {
+	const category = await getCategoryNameBySlug(params.category);
+	if (!category) {
+		throw notFound();
+	}
+	return {
+		title: `Kategoria ${category} - Sklep internetowy`,
+		description: `Produkty z kategorii ${category}`,
+		openGraph: {
+			title: `Kategoria ${category} - Sklep internetowy`,
+			description: `Produkty z kategorii ${category}`,
+		},
+	};
+};
 
 export default async function CategoriesPage({
 	params,
@@ -12,7 +32,7 @@ export default async function CategoriesPage({
 	if (!products) {
 		throw notFound();
 	}
-	const numberofPages = Math.ceil(products?.length / 4);
+	const numberOfPages = Math.ceil(products?.length / 4);
 
 	return (
 		<>
@@ -22,7 +42,7 @@ export default async function CategoriesPage({
 					parseInt(params.pageNumber) * 4,
 				)}
 			/>
-			<Pagination numberOfPages={numberofPages} href={`categories/${params.category}`} />
+			<Pagination numberOfPages={numberOfPages} href={`categories/${params.category}`} />
 		</>
 	);
 }

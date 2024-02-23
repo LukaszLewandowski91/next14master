@@ -39,8 +39,9 @@ export default async function SingleProductPage({ params }: { params: { productI
 				<ProductDescription product={product} />
 				<aside className="space-y-4">
 					<Suspense fallback={"Ładowanie..."}>
-						<h2>Sugerowane produkty</h2>
-						<SuggestedProductsList />
+						{product.categories[0] && (
+							<SuggestedProductsList categorySlug={product.categories[0]?.slug} />
+						)}
 					</Suspense>
 				</aside>
 			</article>
