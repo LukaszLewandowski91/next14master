@@ -11,16 +11,11 @@ const nextConfig = {
 				destination: "/categories/:category/1",
 				permanent: true,
 			},
-			// {
-			// 	source: "/categories/hoodies",
-			// 	destination: "/categories/hoodies/1",
-			// 	permanent: false,
-			// },
-			// {
-			// 	source: "/categories/accessories",
-			// 	destination: "/categories/accessories/1",
-			// 	permanent: false,
-			// },
+			{
+				source: "/products",
+				destination: "/products/1",
+				permanent: true,
+			},
 		];
 	},
 	images: {
@@ -28,6 +23,10 @@ const nextConfig = {
 			{
 				protocol: "https",
 				hostname: "media.graphassets.com",
+			},
+			{
+				protocol: "https",
+				hostname: "static-ourstore.hyperfunctor.com",
 			},
 		],
 	},

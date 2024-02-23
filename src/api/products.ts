@@ -8,18 +8,18 @@ import {
 
 // take: number, offset: number
 
-export const getProductsList = async () => {
-	const graphqlResponse = await executeGraphQL(ProductsGetListDocument, {});
+export const getProductsList = async (take: number, skip: number) => {
+	const graphqlResponse = await executeGraphQL(ProductsGetListDocument, { take, skip });
 
 	return graphqlResponse.products;
 };
 
 export const getProductsByCategorySlug = async (categorySlug: string) => {
-	const data = await executeGraphQL(ProductsGetByCategorySlugDocument, {
+	const graphqlResponse = await executeGraphQL(ProductsGetByCategorySlugDocument, {
 		slug: categorySlug,
 	});
 
-	return data.categories[0]?.products;
+	return graphqlResponse.category?.products;
 };
 
 export const getProductById = async (productId: ProductListItemFragment["id"]) => {

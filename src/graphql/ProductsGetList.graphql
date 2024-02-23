@@ -1,5 +1,10 @@
-query ProductsGetList {
-	products(first: 10) {
-		...ProductListItem
+query ProductsGetList($take: Int!, $skip: Int!) {
+	products(take: $take, skip: $skip) {
+		data {
+			...ProductListItem
+		}
+		meta {
+			total
+		}
 	}
 }

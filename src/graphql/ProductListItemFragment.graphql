@@ -2,10 +2,10 @@ fragment ProductListItem on Product {
 	id
 	name
 	description
-	categories(first: 1) {
+	categories {
 		name
 	}
-	images(first: 1) {
+	images {
 		url
 	}
 	price
