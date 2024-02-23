@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { executeGraphQL } from "@/api/graphqlApi";
 import {
 	ProductGetByIdDocument,
@@ -5,6 +6,7 @@ import {
 	ProductsGetByCategorySlugDocument,
 	ProductsGetListDocument,
 	ProductsGetByCollectionSlugDocument,
+	ProductsGetBySearchInputDocument,
 } from "@/gql/graphql";
 
 // take: number, offset: number
@@ -35,4 +37,15 @@ export const getProductsByCollectionSlug = async (collectionSlug: string) => {
 	});
 
 	return graphqlResponse.collection;
+};
+
+export const getProductsBySearchQuery = async (searchInput: string) => {
+	if (!searchInput) {
+		redirect("/");
+	}
+	const graphqlResponse = await executeGraphQL(ProductsGetBySearchInputDocument, { searchInput });
+	if (!graphqlResponse.products) {
+		redirect("/");
+	}
+	return graphqlResponse.products.data;
 };
