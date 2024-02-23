@@ -12,7 +12,7 @@ export default async function HomePage() {
 			<ProductList products={products.data.slice(0, 4)} />
 
 			{collections.map((collection) => (
-				<Link href={`/collections/${collection.slug}`} key={collection.slug}>
+				<Link href={`/collections/${collection.slug}`} key={collection.slug} role="heading">
 					{collection.name}
 				</Link>
 			))}

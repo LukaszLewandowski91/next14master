@@ -10,7 +10,7 @@ export default async function CollectionPage({ params }: { params: { collection:
 
 	return (
 		<>
-			<h1 className="mb-2 text-4xl font-bold italic">Kolekcja {collection.name}</h1>
+			<h1 className="mb-2 text-4xl font-bold italic">{collection.name}</h1>
 			<ProductList products={collection.products} />
 		</>
 	);
