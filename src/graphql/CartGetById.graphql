@@ -1,5 +1,5 @@
 query CartGetById($id: ID!) {
 	cart(id: $id) {
-		id
+		...Cart
 	}
 }

@@ -16,7 +16,8 @@ import * as types from './graphql';
 const documents = {
     "mutation CartAddProduct($cartId: ID!, $productId: String!) {\n  cartAddItem(id: $cartId, input: {item: {productId: $productId, quantity: 1}}) {\n    id\n  }\n}": types.CartAddProductDocument,
     "mutation CartCreate {\n  cartFindOrCreate(input: {}) {\n    id\n  }\n}": types.CartCreateDocument,
-    "query CartGetById($id: ID!) {\n  cart(id: $id) {\n    id\n  }\n}": types.CartGetByIdDocument,
+    "query CartGetById($id: ID!) {\n  cart(id: $id) {\n    ...Cart\n  }\n}": types.CartGetByIdDocument,
+    "fragment Cart on Cart {\n  id\n  items {\n    quantity\n    product {\n      id\n      name\n      price\n    }\n  }\n}": types.CartFragmentDoc,
     "query CategoryGetBySlug($slug: String!) {\n  category(slug: $slug) {\n    name\n  }\n}": types.CategoryGetBySlugDocument,
     "query CollectionGetBySlug($slug: String!) {\n  collection(slug: $slug) {\n    name\n  }\n}": types.CollectionGetBySlugDocument,
     "query CollectionsGetList {\n  collections {\n    data {\n      name\n      slug\n    }\n  }\n}": types.CollectionsGetListDocument,
@@ -39,7 +40,11 @@ export function graphql(source: "mutation CartCreate {\n  cartFindOrCreate(input
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query CartGetById($id: ID!) {\n  cart(id: $id) {\n    id\n  }\n}"): typeof import('./graphql').CartGetByIdDocument;
+export function graphql(source: "query CartGetById($id: ID!) {\n  cart(id: $id) {\n    ...Cart\n  }\n}"): typeof import('./graphql').CartGetByIdDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment Cart on Cart {\n  id\n  items {\n    quantity\n    product {\n      id\n      name\n      price\n    }\n  }\n}"): typeof import('./graphql').CartFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
