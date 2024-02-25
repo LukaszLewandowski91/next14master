@@ -1,5 +1,7 @@
 "use client";
 import { useOptimistic } from "react";
+import { Minus, Plus } from "lucide-react";
+
 import { changeItemQuantity } from "@/app/cart/actions";
 
 export function ChangeQuantity({
@@ -18,6 +20,17 @@ export function ChangeQuantity({
 
 	return (
 		<form className="flex">
+			<button
+				className="h-6 w-6 border"
+				type="submit"
+				formAction={async () => {
+					setOptimisticQuantity(optimisticQuantity - 1);
+
+					await changeItemQuantity(cartId, productId, optimisticQuantity - 1);
+				}}
+			>
+				<Minus />
+			</button>
 			<span className="w-8 text-center">{optimisticQuantity}</span>
 			<button
 				className="h-6 w-6 border"
@@ -27,7 +40,7 @@ export function ChangeQuantity({
 					await changeItemQuantity(cartId, productId, optimisticQuantity + 1);
 				}}
 			>
-				+
+				<Plus />
 			</button>
 		</form>
 	);

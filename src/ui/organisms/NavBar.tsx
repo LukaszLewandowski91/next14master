@@ -1,7 +1,7 @@
-"use client";
 import { ShoppingCart } from "lucide-react";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
 import { SearchInput } from "@/ui/atoms/SearchInput";
+import { getCartFromCookies } from "@/api/cart";
 
 const NavLinks = [
 	{ href: "/", label: "Home", exact: true },
@@ -11,12 +11,16 @@ const NavLinks = [
 	{ href: "/categories/accessories", label: "Accessories", exact: false },
 ];
 
-export const Nav = () => {
+export const Nav = async () => {
 	const defaultClasses =
 		"flex h-full w-full min-w-[3rem] items-center justify-center border-b-2 px-1 pt-1 text-center text-sm font-medium text-slate-500";
 	const activeClasses = defaultClasses + " border-blue-500";
 	const classNames =
 		defaultClasses + " border-transparent hover:border-gray-300 hover:text-slate-700";
+
+	const cart = await getCartFromCookies();
+
+	const quantity = cart?.items.length || 0;
 	return (
 		<header className="sticky top-0 z-20 border-b bg-white bg-opacity-60 backdrop-blur-lg">
 			<div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
@@ -50,7 +54,7 @@ export const Nav = () => {
 							>
 								<ShoppingCart className="h-6 w-6 flex-shrink-0" aria-hidden="true" />
 								<div className="w-4">
-									<span className="ml-2 text-sm font-medium">0</span>
+									<span className="ml-2 text-sm font-medium">{quantity}</span>
 									<span className="sr-only">items in cart, view bag</span>
 								</div>
 							</ActiveLink>
