@@ -35,7 +35,7 @@ export default async function SingleProductPage({ params }: { params: { productI
 		throw notFound();
 	}
 
-	async function addToCartAction(_formData: FormData) {
+	async function addToCartAction() {
 		"use server";
 		const cart = await getOrCreateCart();
 
