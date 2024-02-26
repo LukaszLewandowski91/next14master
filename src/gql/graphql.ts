@@ -294,6 +294,14 @@ export type CartGetByIdQuery = { cart?: { id: string, items: Array<{ quantity: n
 
 export type CartFragment = { id: string, items: Array<{ quantity: number, product: { id: string, name: string, price: number } }> };
 
+export type CartRemoveProductMutationVariables = Exact<{
+  cartId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+}>;
+
+
+export type CartRemoveProductMutation = { cartRemoveItem: { id: string } };
+
 export type CartSetProductQuantityMutationVariables = Exact<{
   cartId: Scalars['ID']['input'];
   productId: Scalars['ID']['input'];
@@ -433,6 +441,13 @@ export const CartGetByIdDocument = new TypedDocumentString(`
     }
   }
 }`) as unknown as TypedDocumentString<CartGetByIdQuery, CartGetByIdQueryVariables>;
+export const CartRemoveProductDocument = new TypedDocumentString(`
+    mutation CartRemoveProduct($cartId: ID!, $productId: ID!) {
+  cartRemoveItem(id: $cartId, productId: $productId) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<CartRemoveProductMutation, CartRemoveProductMutationVariables>;
 export const CartSetProductQuantityDocument = new TypedDocumentString(`
     mutation CartSetProductQuantity($cartId: ID!, $productId: ID!, $quantity: Int!) {
   cartChangeItemQuantity(id: $cartId, productId: $productId, quantity: $quantity) {

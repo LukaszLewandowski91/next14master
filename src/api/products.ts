@@ -15,6 +15,9 @@ export const getProductsList = async (take: number, skip: number) => {
 	const graphqlResponse = await executeGraphQL({
 		query: ProductsGetListDocument,
 		variables: { take, skip },
+		next: {
+			revalidate: 15,
+		},
 	});
 
 	return graphqlResponse.products;
@@ -35,6 +38,9 @@ export const getProductById = async (productId: ProductListItemFragment["id"]) =
 	const { product } = await executeGraphQL({
 		query: ProductGetByIdDocument,
 		variables: { id: productId },
+		next: {
+			revalidate: 1,
+		},
 	});
 
 	return product;
