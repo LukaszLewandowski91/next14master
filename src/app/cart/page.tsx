@@ -1,15 +1,14 @@
-import { redirect } from "next/navigation";
-
 import { getCartFromCookies } from "@/api/cart";
 import { formatMoney } from "@/utils";
 import { ChangeQuantity } from "@/ui/atoms/ChangeQuantity";
 import { RemoveButton } from "@/app/cart/RemoveButton";
+import { handlePaymentAction } from "@/app/cart/actions";
 
 export default async function CartPage() {
 	const cart = await getCartFromCookies();
 
 	if (!cart) {
-		redirect("/");
+		return;
 	}
 
 	if (cart.items.length === 0) {
@@ -51,6 +50,14 @@ export default async function CartPage() {
 						})}
 					</tbody>
 				</table>
+				<form action={handlePaymentAction}>
+					<button
+						type="submit"
+						className="mt-4 w-full max-w-xs rounded-md border bg-slate-950 py-2 text-white shadow-sm transition-colors hover:bg-slate-800 "
+					>
+						Pay
+					</button>
+				</form>
 			</div>
 		);
 	}
