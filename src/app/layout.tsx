@@ -11,8 +11,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
+	modal,
 }: Readonly<{
 	children: React.ReactNode;
+	modal: React.ReactNode;
 }>) {
 	return (
 		<html lang="pl">
@@ -24,6 +26,7 @@ export default function RootLayout({
 				<footer>
 					<p className="text-center text-gray-500">&copy; {new Date().getFullYear()} Clothes</p>
 				</footer>
+				{modal}
 			</body>
 		</html>
 	);
