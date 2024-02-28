@@ -1,3 +1,4 @@
+// import Link from "next/link";
 import { getCartFromCookies } from "@/api/cart";
 import { formatMoney } from "@/utils";
 import { ChangeQuantity } from "@/ui/atoms/ChangeQuantity";
@@ -58,6 +59,13 @@ export default async function CartPage() {
 						Pay
 					</button>
 				</form>
+				{/* <Link
+					type="button"
+					className="mt-4 w-full max-w-xs rounded-md border bg-slate-950 py-2 text-white shadow-sm transition-colors hover:bg-slate-800 "
+					href={`/payment`}
+				>
+					Pay
+				</Link> */}
 			</div>
 		);
 	}

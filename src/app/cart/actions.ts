@@ -61,12 +61,13 @@ export async function handlePaymentAction() {
 		// cancel_url: "http://localhost:3000/cart/cancel",
 		success_url:
 			process.env.NODE_ENV === "production"
-				? `${process.env.SUCCESS_URL}?sessionId={CHECKOUT_SESSION_ID}`
+				? `https://next14master.vercel.app/cart/success?sessionId={CHECKOUT_SESSION_ID}`
 				: `http://localhost:3000/cart/success?sessionId={CHECKOUT_SESSION_ID}`,
+
 		cancel_url:
 			process.env.NODE_ENV === "production"
-				? process.env.CANCEL_URL
-				: "http://localhost:3000/cart/cancel",
+				? `https://next14master.vercel.app/cart/cancel`
+				: `http://localhost:3000/cart/cancel`,
 	});
 
 	if (!checkoutSession.url) {
