@@ -2,7 +2,7 @@
 import { getCartFromCookies } from "@/api/cart";
 import { formatMoney } from "@/utils";
 import { ChangeQuantity } from "@/ui/atoms/ChangeQuantity";
-import { RemoveButton } from "@/app/cart/RemoveButton";
+import { RemoveButton } from "@/ui/atoms/RemoveButton";
 import { handlePaymentAction } from "@/app/cart/actions";
 
 export default async function CartPage() {
