@@ -50,10 +50,10 @@ export const Reviews = async ({ productId }: { productId: string }) => {
 	async function handleSubmit(formData: FormData) {
 		"use server";
 
-		const author = formData.get("author") as string;
+		const author = formData.get("name") as string;
 		const email = formData.get("email") as string;
-		const title = formData.get("title") as string;
-		const description = formData.get("description") as string;
+		const title = formData.get("headline") as string;
+		const description = formData.get("content") as string;
 		const rating = parseInt(formData.get("rating") as string);
 		const productId = productReviews?.id as string;
 		// if (productReviews?.reviews === undefined) return setOptimisticReviews([]);

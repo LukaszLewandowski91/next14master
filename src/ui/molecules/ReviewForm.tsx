@@ -6,7 +6,7 @@ export const ReviewForm = () => {
 			</label>
 			<input
 				type="text"
-				name="author"
+				name="name"
 				id="author"
 				required
 				className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 sm:text-sm sm:leading-6"
@@ -28,7 +28,7 @@ export const ReviewForm = () => {
 			</label>
 			<input
 				type="title"
-				name="title"
+				name="headline"
 				id="title"
 				required
 				className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 sm:text-sm sm:leading-6"
@@ -41,7 +41,7 @@ export const ReviewForm = () => {
 				className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 sm:text-sm sm:leading-6"
 				placeholder="Description"
 				required
-				name="description"
+				name="content"
 			></textarea>
 			<fieldset className="mt-1">
 				<label id="rating" className="mt-1 block text-sm font-medium leading-6 text-gray-700">
