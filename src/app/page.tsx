@@ -4,7 +4,7 @@ import { ProductList } from "@/ui/organisms/ProductList";
 import { getCollectionsList } from "@/api/collections";
 
 export default async function HomePage() {
-	const products = await getProductsList(4, 0);
+	const products = await getProductsList(4, 0, undefined, undefined);
 	const collections = await getCollectionsList();
 
 	return (

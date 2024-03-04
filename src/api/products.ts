@@ -9,12 +9,19 @@ import {
 	ProductsGetBySearchInputDocument,
 	ReviewsGetByProductIdDocument,
 	ReviewCreateDocument,
+	type ProductSortBy,
+	type SortDirection,
 } from "@/gql/graphql";
 
-export const getProductsList = async (take: number, skip: number) => {
+export const getProductsList = async (
+	take: number,
+	skip: number,
+	orderBy: undefined | null | ProductSortBy,
+	order: undefined | null | SortDirection,
+) => {
 	const graphqlResponse = await executeGraphQL({
 		query: ProductsGetListDocument,
-		variables: { take, skip },
+		variables: { take, skip, orderBy, order },
 		next: {
 			revalidate: 15,
 		},
