@@ -1,6 +1,11 @@
 import { cookies } from "next/headers";
 import { executeGraphQL } from "@/api/graphqlApi";
-import { CartGetByIdDocument, CartCreateDocument, CartAddProductDocument } from "@/gql/graphql";
+import {
+	CartGetByIdDocument,
+	CartCreateDocument,
+	CartAddProductDocument,
+	CartSetProductQuantityDocument,
+} from "@/gql/graphql";
 
 export async function getOrCreateCart() {
 	const cart = await getCartFromCookies();
@@ -46,10 +51,41 @@ export async function getCartFromCookies() {
 	return cart;
 }
 export async function addProductToCart(cartId: string, productId: string) {
-	await executeGraphQL({
-		query: CartAddProductDocument,
-		variables: { cartId, productId },
+	const currentCart = await executeGraphQL({
+		query: CartGetByIdDocument,
+		variables: { id: cartId },
 		next: { tags: ["cart"] },
 		cache: "no-store",
 	});
+
+	if (currentCart.cart?.items.length === 0) {
+		await executeGraphQL({
+			query: CartAddProductDocument,
+			variables: { cartId, productId },
+			next: { tags: ["cart"] },
+			cache: "no-store",
+		});
+	} else if (currentCart.cart?.items.some((item) => item.product.id === productId)) {
+		const product = currentCart.cart.items.find((item) => item.product.id === productId);
+		if (!product) {
+			throw new Error("Product not found");
+		}
+		await executeGraphQL({
+			query: CartSetProductQuantityDocument,
+			variables: {
+				cartId,
+				productId,
+				quantity: product.quantity + 1,
+			},
+			next: { tags: ["cart"] },
+			cache: "no-store",
+		});
+	} else {
+		await executeGraphQL({
+			query: CartAddProductDocument,
+			variables: { cartId, productId },
+			next: { tags: ["cart"] },
+			cache: "no-store",
+		});
+	}
 }
