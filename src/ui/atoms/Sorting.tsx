@@ -91,7 +91,7 @@ export const Sorting = ({ pageNumber }: { pageNumber: string }) => {
 								Worst Rating
 							</button>
 
-							<button
+							{/* <button
 								className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
 								role="menuitem"
 								tabIndex={-1}
@@ -110,7 +110,7 @@ export const Sorting = ({ pageNumber }: { pageNumber: string }) => {
 								onClick={() => (setSorting("PRICE"), setOrder("DESC"), setIsClicked(!isClicked))}
 							>
 								Price: High to Low
-							</button>
+							</button> */}
 						</div>
 					</div>
 				</div>
