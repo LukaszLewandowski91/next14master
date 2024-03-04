@@ -1,9 +1,41 @@
 import { Star } from "lucide-react";
+import clsx from "clsx";
 import { getReviewsByProductId } from "@/api/products";
 
 export const Reviews = async ({ productId }: { productId: string }) => {
-	const reviews = await getReviewsByProductId(productId);
-	if (!reviews) return null;
+	const productReviews = await getReviewsByProductId(productId);
+	if (!productReviews) return null;
+
+	const rating = Math.round(productReviews.rating as number);
+
+	const activeClassName = "h-5 w-5 shrink-0 fill-yellow-400 text-yellow-400 text-opacity-100 ";
+	const className = "h-5 w-5 shrink-0 fill-gray-300 text-gray-300 text-opacity-100";
+
+	const fiveStars =
+		(productReviews.reviews.filter((review) => review.rating === 5).length /
+			productReviews.reviews.length) *
+		100;
+	const fourStars =
+		(productReviews.reviews.filter((review) => review.rating === 4).length /
+			productReviews.reviews.length) *
+		100;
+	const threeStars =
+		(productReviews.reviews.filter((review) => review.rating === 3).length /
+			productReviews.reviews.length) *
+		100;
+	const twoStars =
+		(productReviews.reviews.filter((review) => review.rating === 2).length /
+			productReviews.reviews.length) *
+		100;
+	const oneStar =
+		(productReviews.reviews.filter((review) => review.rating === 1).length /
+			productReviews.reviews.length) *
+		100;
+
+	const handleAuthor = (author: string) => {
+		const authorInitials = author.split(" ").map((name) => name.charAt(0));
+		return authorInitials.join("");
+	};
 
 	return (
 		<div className="bg-white bg-opacity-100">
@@ -15,15 +47,15 @@ export const Reviews = async ({ productId }: { productId: string }) => {
 					<div className="mt-3 flex items-center">
 						<div>
 							<div className="flex items-center">
-								<Star className="h-5 w-5 shrink-0 fill-yellow-400 text-yellow-400 text-opacity-100" />
-								<Star className="h-5 w-5 shrink-0 fill-yellow-400 text-yellow-400 text-opacity-100" />
-								<Star className="h-5 w-5 shrink-0 fill-yellow-400 text-yellow-400 text-opacity-100" />
-								<Star className="h-5 w-5 shrink-0 fill-yellow-400 text-yellow-400 text-opacity-100" />
-								<Star className="h-5 w-5 shrink-0 fill-gray-300 text-gray-300 text-opacity-100" />
+								<Star className={clsx(rating >= 1 ? activeClassName : className)} />
+								<Star className={clsx(rating >= 2 ? activeClassName : className)} />
+								<Star className={clsx(rating >= 3 ? activeClassName : className)} />
+								<Star className={clsx(rating >= 4 ? activeClassName : className)} />
+								<Star className={clsx(rating >= 5 ? activeClassName : className)} />
 							</div>
 						</div>
 						<p className="ml-2 text-sm leading-5 text-gray-900 text-opacity-100">
-							Based on 1624 reviews
+							Based on {productReviews.reviews.length} reviews
 						</p>
 					</div>
 					<div className="mt-6">
@@ -37,13 +69,13 @@ export const Reviews = async ({ productId }: { productId: string }) => {
 											<div className="h-3 rounded-full border border-gray-200 border-opacity-100 bg-gray-100 bg-opacity-100"></div>
 											<div
 												className="absolute bottom-0 top-0 rounded-full border border-yellow-400 border-opacity-100 bg-yellow-400 bg-opacity-100"
-												style={{ width: "calc(62.7463%)" }}
+												style={{ width: `calc(${fiveStars}%)` }}
 											></div>
 										</div>
 									</div>
 								</dt>
 								<dd className="ml-3 w-10 text-right text-sm tabular-nums leading-5 text-gray-900 text-opacity-100">
-									63%
+									{Math.round(fiveStars)}%
 								</dd>
 							</div>
 
@@ -56,13 +88,13 @@ export const Reviews = async ({ productId }: { productId: string }) => {
 											<div className="h-3 rounded-full border border-gray-200 border-opacity-100 bg-gray-100 bg-opacity-100"></div>
 											<div
 												className="absolute bottom-0 top-0 rounded-full border border-yellow-400 border-opacity-100 bg-yellow-400 bg-opacity-100"
-												style={{ width: "calc(9.97537%)" }}
+												style={{ width: `calc(${fourStars}%)` }}
 											></div>
 										</div>
 									</div>
 								</dt>
 								<dd className="ml-3 w-10 text-right text-sm tabular-nums leading-5 text-gray-900 text-opacity-100">
-									10%
+									{Math.round(fourStars)}%
 								</dd>
 							</div>
 							<div className="flex items-center text-sm leading-5">
@@ -74,13 +106,13 @@ export const Reviews = async ({ productId }: { productId: string }) => {
 											<div className="h-3 rounded-full border border-gray-200 border-opacity-100 bg-gray-100 bg-opacity-100"></div>
 											<div
 												className="absolute bottom-0 top-0 rounded-full border border-yellow-400 border-opacity-100 bg-yellow-400 bg-opacity-100"
-												style={{ width: "calc(5.97291%)" }}
+												style={{ width: `calc(${threeStars}%)` }}
 											></div>
 										</div>
 									</div>
 								</dt>
 								<dd className="ml-3 w-10 text-right text-sm tabular-nums leading-5 text-gray-900 text-opacity-100">
-									6%
+									{Math.round(threeStars)}%
 								</dd>
 							</div>
 							<div className="flex items-center text-sm leading-5">
@@ -92,13 +124,13 @@ export const Reviews = async ({ productId }: { productId: string }) => {
 											<div className="h-3 rounded-full border border-gray-200 border-opacity-100 bg-gray-100 bg-opacity-100"></div>
 											<div
 												className="absolute bottom-0 top-0 rounded-full border border-yellow-400 border-opacity-100 bg-yellow-400 bg-opacity-100"
-												style={{ width: "calc(12.2537%)" }}
+												style={{ width: `calc(${twoStars}%)` }}
 											></div>
 										</div>
 									</div>
 								</dt>
 								<dd className="ml-3 w-10 text-right text-sm tabular-nums leading-5 text-gray-900 text-opacity-100">
-									12%
+									{Math.round(twoStars)}%
 								</dd>
 							</div>
 							<div className="flex items-center text-sm leading-5">
@@ -110,13 +142,13 @@ export const Reviews = async ({ productId }: { productId: string }) => {
 											<div className="h-3 rounded-full border border-gray-200 border-opacity-100 bg-gray-100 bg-opacity-100"></div>
 											<div
 												className="absolute bottom-0 top-0 rounded-full border border-yellow-400 border-opacity-100 bg-yellow-400 bg-opacity-100"
-												style={{ width: "calc(9.05172%)" }}
+												style={{ width: `calc(${oneStar}%)` }}
 											></div>
 										</div>
 									</div>
 								</dt>
 								<dd className="ml-3 w-10 text-right text-sm tabular-nums leading-5 text-gray-900 text-opacity-100">
-									9%
+									{Math.round(oneStar)}%
 								</dd>
 							</div>
 						</dl>
@@ -133,33 +165,32 @@ export const Reviews = async ({ productId }: { productId: string }) => {
 				<div className="col-start-6 mt-0 lg:col-span-7">
 					<div className="flow-root">
 						<div className="-mb-12 -mt-12">
-							<div className="pb-12 pt-12">
-								<div className="flex items-center">
-									<div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-400">
-										ŁL
-									</div>
-									<div className="ml-4">
-										<h4 className="text-sm font-bold text-gray-900 text-opacity-100">
-											Łukasz Lewandowski
-										</h4>
-										<div className="mt-1 flex items-center">
-											<Star className="h-5 w-5 shrink-0 fill-yellow-400 text-yellow-400 text-opacity-100" />
-											<Star className="h-5 w-5 shrink-0 fill-yellow-400 text-yellow-400 text-opacity-100" />
-											<Star className="h-5 w-5 shrink-0 fill-yellow-400 text-yellow-400 text-opacity-100" />
-											<Star className="h-5 w-5 shrink-0 fill-yellow-400 text-yellow-400 text-opacity-100" />
-											<Star className="h-5 w-5 shrink-0 fill-yellow-400 text-yellow-400 text-opacity-100" />
+							{productReviews.reviews.map((review) => (
+								<div key={review.id} className="pb-12 pt-12">
+									<div className="flex items-center">
+										<div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-400">
+											{handleAuthor(review.author)}
+										</div>
+										<div className="ml-4">
+											<h4 className="text-sm font-bold text-gray-900 text-opacity-100">
+												{review.author}
+											</h4>
+											<div className="mt-1 flex items-center">
+												<Star className={clsx(review.rating >= 1 ? activeClassName : className)} />
+												<Star className={clsx(review.rating >= 2 ? activeClassName : className)} />
+												<Star className={clsx(review.rating >= 3 ? activeClassName : className)} />
+												<Star className={clsx(review.rating >= 4 ? activeClassName : className)} />
+												<Star className={clsx(review.rating >= 5 ? activeClassName : className)} />
+											</div>
 										</div>
 									</div>
-								</div>
 
-								<div className="mt-4 text-base  text-gray-600 text-opacity-100">
-									<h3 className="text-lg font-bold">This is the best white t-shirt out there</h3>
-									<p className="italic">
-										This is the bag of my dreams. I took it on my last vacation and was able to fit
-										an absurd amount of snacks for the many long and hungry flights.
-									</p>
+									<div className="mt-4 text-base  text-gray-600 text-opacity-100">
+										<h3 className="text-lg font-bold">{review.title}</h3>
+										<p className="italic">{review.description}</p>
+									</div>
 								</div>
-							</div>
+							))}
 						</div>
 					</div>
 				</div>

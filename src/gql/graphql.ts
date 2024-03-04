@@ -374,7 +374,7 @@ export type ReviewsGetByProductIdQueryVariables = Exact<{
 }>;
 
 
-export type ReviewsGetByProductIdQuery = { product?: { rating?: number | null, reviews: Array<{ author: string, rating: number, title: string, description: string }> } | null };
+export type ReviewsGetByProductIdQuery = { product?: { rating?: number | null, reviews: Array<{ id: string, author: string, rating: number, title: string, description: string }> } | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -599,6 +599,7 @@ export const ReviewsGetByProductIdDocument = new TypedDocumentString(`
   product(id: $id) {
     rating
     reviews {
+      id
       author
       rating
       title

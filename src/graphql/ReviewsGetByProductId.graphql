@@ -2,6 +2,7 @@ query ReviewsGetByProductId($id: ID!) {
 	product(id: $id) {
 		rating
 		reviews {
+			id
 			author
 			rating
 			title

@@ -64,7 +64,9 @@ export default async function SingleProductPage({ params }: { params: { productI
 				</Suspense>
 			</aside>
 			<aside className="space-y-4">
-				<Reviews productId={params.productId} />
+				<Suspense fallback={"Ładowanie..."}>
+					<Reviews productId={params.productId} />
+				</Suspense>
 			</aside>
 		</>
 	);
