@@ -32,9 +32,9 @@ export function ChangeQuantity({
 			>
 				<Minus />
 			</button>
-			<span className="w-8 text-center" data-testid="quantity">
+			<div data-testid="quantity" className="w-8 text-center">
 				{optimisticQuantity}
-			</span>
+			</div>
 			<button
 				className="h-6 w-6 border"
 				type="submit"
