@@ -179,7 +179,8 @@ export type ProductList = {
 export type ProductSortBy =
   | 'DEFAULT'
   | 'NAME'
-  | 'PRICE';
+  | 'PRICE'
+  | 'RATING';
 
 export type Query = {
   cart?: Maybe<Cart>;
@@ -367,6 +368,13 @@ export type ProductsGetListQueryVariables = Exact<{
 
 
 export type ProductsGetListQuery = { products: { data: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string, slug: string }>, images: Array<{ url: string }> }>, meta: { total: number } } };
+
+export type ReviewsGetByProductIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type ReviewsGetByProductIdQuery = { product?: { rating?: number | null, reviews: Array<{ author: string, rating: number, title: string, description: string }> } | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -586,3 +594,16 @@ export const ProductsGetListDocument = new TypedDocumentString(`
   }
   price
 }`) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
+export const ReviewsGetByProductIdDocument = new TypedDocumentString(`
+    query ReviewsGetByProductId($id: ID!) {
+  product(id: $id) {
+    rating
+    reviews {
+      author
+      rating
+      title
+      description
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ReviewsGetByProductIdQuery, ReviewsGetByProductIdQueryVariables>;

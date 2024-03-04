@@ -7,6 +7,7 @@ import {
 	ProductsGetListDocument,
 	ProductsGetByCollectionSlugDocument,
 	ProductsGetBySearchInputDocument,
+	ReviewsGetByProductIdDocument,
 } from "@/gql/graphql";
 
 // take: number, offset: number
@@ -69,4 +70,15 @@ export const getProductsBySearchQuery = async (searchInput: string) => {
 		redirect("/");
 	}
 	return graphqlResponse.products.data;
+};
+
+export const getReviewsByProductId = async (productId: string) => {
+	const graphqlResponse = await executeGraphQL({
+		query: ReviewsGetByProductIdDocument,
+		variables: {
+			id: productId,
+		},
+	});
+
+	return graphqlResponse.product;
 };
