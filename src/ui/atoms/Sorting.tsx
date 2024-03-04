@@ -44,6 +44,16 @@ export const Sorting = ({ pageNumber }: { pageNumber: string }) => {
 							</svg>
 						</button>
 					</div>
+					<button
+						className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
+						role="menuitem"
+						tabIndex={-1}
+						id="menu-item-3"
+						data-testid="sort-by-price"
+						onClick={() => (setSorting("PRICE"), setOrder("ASC"))}
+					>
+						Price: Low to High
+					</button>
 
 					<div
 						className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl  ring-black ring-opacity-5 focus:outline-none"
