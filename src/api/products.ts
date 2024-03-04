@@ -8,9 +8,8 @@ import {
 	ProductsGetByCollectionSlugDocument,
 	ProductsGetBySearchInputDocument,
 	ReviewsGetByProductIdDocument,
+	ReviewCreateDocument,
 } from "@/gql/graphql";
-
-// take: number, offset: number
 
 export const getProductsList = async (take: number, skip: number) => {
 	const graphqlResponse = await executeGraphQL({
@@ -81,4 +80,27 @@ export const getReviewsByProductId = async (productId: string) => {
 	});
 
 	return graphqlResponse.product;
+};
+
+export const addReview = async (
+	author: string,
+	rating: number,
+	description: string,
+	title: string,
+	productId: string,
+	email: string,
+) => {
+	const graphqlResponse = await executeGraphQL({
+		query: ReviewCreateDocument,
+		variables: {
+			author: author,
+			title: title,
+			description: description,
+			email: email,
+			rating: rating,
+			productId: productId,
+		},
+	});
+
+	return graphqlResponse.reviewCreate.id;
 };

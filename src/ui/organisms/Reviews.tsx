@@ -1,9 +1,19 @@
 import { Star } from "lucide-react";
 import clsx from "clsx";
-import { getReviewsByProductId } from "@/api/products";
+// import { useOptimistic } from "react";
+import { addReview, getReviewsByProductId } from "@/api/products";
+import { ReviewForm } from "@/ui/molecules/ReviewForm";
+import { AddReviewButton } from "@/ui/atoms/AddReviewButton";
+// import { type ReviewFragment } from "@/gql/graphql";
 
 export const Reviews = async ({ productId }: { productId: string }) => {
 	const productReviews = await getReviewsByProductId(productId);
+	// const [optimisticReviews, setOptimisticReviews] = useOptimistic(
+	// 	productReviews?.reviews,
+	// 	(_state, newReviews: ReviewFragment[]) => {
+	// 		return newReviews;
+	// 	},
+	// );
 	if (!productReviews) return null;
 
 	const rating = Math.round(productReviews.rating as number);
@@ -36,6 +46,30 @@ export const Reviews = async ({ productId }: { productId: string }) => {
 		const authorInitials = author.split(" ").map((name) => name.charAt(0));
 		return authorInitials.join("");
 	};
+
+	async function handleSubmit(formData: FormData) {
+		"use server";
+
+		const author = formData.get("author") as string;
+		const email = formData.get("email") as string;
+		const title = formData.get("title") as string;
+		const description = formData.get("description") as string;
+		const rating = parseInt(formData.get("rating") as string);
+		const productId = productReviews?.id as string;
+		// if (productReviews?.reviews === undefined) return setOptimisticReviews([]);
+		// const optimisticReviews = [
+		// 	...productReviews?.reviews,
+		// 	{
+		// 		id: productId,
+		// 		title: title,
+		// 		author: author,
+		// 		rating: rating,
+		// 		description: description,
+		// 	},
+		// ];
+		// setOptimisticReviews(optimisticReviews),
+		await addReview(author, rating, description, title, productId, email);
+	}
 
 	return (
 		<div className="bg-white bg-opacity-100">
@@ -160,11 +194,52 @@ export const Reviews = async ({ productId }: { productId: string }) => {
 						<p className="mt-1 text-sm text-gray-600 text-opacity-100">
 							If you’ve used this product, share your thoughts with other customers
 						</p>
+						<form action={handleSubmit} data-testid="add-review-form">
+							<ReviewForm />
+							<AddReviewButton />
+						</form>
 					</div>
 				</div>
 				<div className="col-start-6 mt-0 lg:col-span-7">
 					<div className="flow-root">
 						<div className="-mb-12 -mt-12">
+							{/* {optimisticReviews &&
+								optimisticReviews.map((review) => (
+									<div key={review.id} className="pb-12 pt-12">
+										<div className="flex items-center">
+											<div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-400">
+												{handleAuthor(review.author)}
+											</div>
+											<div className="ml-4">
+												<h4 className="text-sm font-bold text-gray-900 text-opacity-100">
+													{review.author}
+												</h4>
+												<div className="mt-1 flex items-center">
+													<Star
+														className={clsx(review.rating >= 1 ? activeClassName : className)}
+													/>
+													<Star
+														className={clsx(review.rating >= 2 ? activeClassName : className)}
+													/>
+													<Star
+														className={clsx(review.rating >= 3 ? activeClassName : className)}
+													/>
+													<Star
+														className={clsx(review.rating >= 4 ? activeClassName : className)}
+													/>
+													<Star
+														className={clsx(review.rating >= 5 ? activeClassName : className)}
+													/>
+												</div>
+											</div>
+										</div>
+
+										<div className="mt-4 text-base  text-gray-600 text-opacity-100">
+											<h3 className="text-lg font-bold">{review.title}</h3>
+											<p className="italic">{review.description}</p>
+										</div>
+									</div>
+								))} */}
 							{productReviews.reviews.map((review) => (
 								<div key={review.id} className="pb-12 pt-12">
 									<div className="flex items-center">

@@ -369,12 +369,26 @@ export type ProductsGetListQueryVariables = Exact<{
 
 export type ProductsGetListQuery = { products: { data: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string, slug: string }>, images: Array<{ url: string }> }>, meta: { total: number } } };
 
+export type ReviewCreateMutationVariables = Exact<{
+  author: Scalars['String']['input'];
+  rating: Scalars['Int']['input'];
+  description: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+  productId: Scalars['ID']['input'];
+  email: Scalars['String']['input'];
+}>;
+
+
+export type ReviewCreateMutation = { reviewCreate: { id: string } };
+
+export type ReviewFragment = { id: string, title: string, author: string, rating: number, description: string };
+
 export type ReviewsGetByProductIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type ReviewsGetByProductIdQuery = { product?: { rating?: number | null, reviews: Array<{ id: string, author: string, rating: number, title: string, description: string }> } | null };
+export type ReviewsGetByProductIdQuery = { product?: { id: string, rating?: number | null, reviews: Array<{ id: string, author: string, rating: number, title: string, description: string }> } | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -418,6 +432,15 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(`
   price
 }
     `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+export const ReviewFragmentDoc = new TypedDocumentString(`
+    fragment Review on Review {
+  id
+  title
+  author
+  rating
+  description
+}
+    `, {"fragmentName":"Review"}) as unknown as TypedDocumentString<ReviewFragment, unknown>;
 export const CartAddProductDocument = new TypedDocumentString(`
     mutation CartAddProduct($cartId: ID!, $productId: String!) {
   cartAddItem(id: $cartId, input: {item: {productId: $productId, quantity: 1}}) {
@@ -594,9 +617,24 @@ export const ProductsGetListDocument = new TypedDocumentString(`
   }
   price
 }`) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
+export const ReviewCreateDocument = new TypedDocumentString(`
+    mutation ReviewCreate($author: String!, $rating: Int!, $description: String!, $title: String!, $productId: ID!, $email: String!) {
+  reviewCreate(
+    author: $author
+    rating: $rating
+    description: $description
+    title: $title
+    productId: $productId
+    email: $email
+  ) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<ReviewCreateMutation, ReviewCreateMutationVariables>;
 export const ReviewsGetByProductIdDocument = new TypedDocumentString(`
     query ReviewsGetByProductId($id: ID!) {
   product(id: $id) {
+    id
     rating
     reviews {
       id
