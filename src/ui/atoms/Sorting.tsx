@@ -10,10 +10,11 @@ export const Sorting = ({ pageNumber }: { pageNumber: string }) => {
 	const router = useRouter();
 
 	useEffect(() => {
+		console.log(sorting);
 		if (sorting !== "") {
 			router.push(`/products/${pageNumber}?orderBy=${sorting}&order=${order}`);
 		}
-	}, [sorting]);
+	}, [sorting, order]);
 
 	return (
 		<>
