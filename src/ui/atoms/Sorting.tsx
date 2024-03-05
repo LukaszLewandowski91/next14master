@@ -1,5 +1,5 @@
 "use client";
-import clsx from "clsx";
+// import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -50,35 +50,8 @@ export const Sorting = ({ pageNumber }: { pageNumber: string }) => {
 						aria-labelledby="menu-button"
 						tabIndex={-1}
 					>
-						<div className={clsx("py-1", isClicked ? "" : "hidden")} role="none">
-							<button
-								className="block px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100"
-								role="menuitem"
-								tabIndex={-1}
-								id="menu-item-0"
-								onClick={() => (setSorting("DEFAULT"), setOrder("ASC"), setIsClicked(!isClicked))}
-							>
-								Most Popular
-							</button>
-							<button
-								className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
-								role="menuitem"
-								tabIndex={-1}
-								id="menu-item-1"
-								onClick={() => (setSorting("RATING"), setOrder("DESC"), setIsClicked(!isClicked))}
-							>
-								Best Rating
-							</button>
-							<button
-								className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
-								role="menuitem"
-								tabIndex={-1}
-								id="menu-item-2"
-								onClick={() => (setSorting("RATING"), setOrder("ASC"), setIsClicked(!isClicked))}
-							>
-								Worst Rating
-							</button>
-
+						{/* <div className={clsx("py-1", isClicked ? "" : "hidden")} role="none"> */}
+						<div className="py-1" role="none">
 							<button
 								className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
 								role="menuitem"
@@ -98,6 +71,35 @@ export const Sorting = ({ pageNumber }: { pageNumber: string }) => {
 								onClick={() => (setSorting("PRICE"), setOrder("DESC"), setIsClicked(!isClicked))}
 							>
 								Price: High to Low
+							</button>
+							<button
+								className="block px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100"
+								role="menuitem"
+								tabIndex={-1}
+								id="menu-item-0"
+								onClick={() => (setSorting("DEFAULT"), setOrder("ASC"), setIsClicked(!isClicked))}
+							>
+								Most Popular
+							</button>
+							<button
+								className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
+								role="menuitem"
+								tabIndex={-1}
+								id="menu-item-1"
+								data-testid="sort-by-rating"
+								onClick={() => (setSorting("RATING"), setOrder("DESC"), setIsClicked(!isClicked))}
+							>
+								Best Rating
+							</button>
+							<button
+								className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
+								role="menuitem"
+								tabIndex={-1}
+								id="menu-item-2"
+								data-testid="sort-by-rating"
+								onClick={() => (setSorting("RATING"), setOrder("ASC"), setIsClicked(!isClicked))}
+							>
+								Worst Rating
 							</button>
 						</div>
 					</div>
