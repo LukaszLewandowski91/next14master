@@ -1,4 +1,5 @@
 import { ShoppingCart } from "lucide-react";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
 import { SearchInput } from "@/ui/atoms/SearchInput";
 import { getCartFromCookies } from "@/api/cart";
@@ -60,6 +61,15 @@ export const Nav = async () => {
 								</div>
 							</ActiveLink>
 						</div>
+					</div>
+					<div>
+						<SignedIn>
+							{/* <UserButton userProfileMode="navigation" appearance={clerkAppearance} /> */}
+							<UserButton userProfileMode="navigation" />
+						</SignedIn>
+						<SignedOut>
+							<SignInButton />
+						</SignedOut>
 					</div>
 				</div>
 			</div>
