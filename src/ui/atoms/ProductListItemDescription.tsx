@@ -23,15 +23,14 @@ export const ProductListItemDescription = ({
 						</p>
 					)}
 				</div>
-				<p className="text-sm font-medium text-gray-900" data-testid="product-price">
-					<span className="sr-only">Cena:</span> {formatMoney(price / 100)}
+				<p className="text-sm font-medium text-gray-900">
+					<span className="sr-only">Cena:</span>{" "}
+					<span data-testid="product-price">{formatMoney(price / 100)}</span>
 				</p>
 			</div>
 			{rating && (
 				<div className="mb-3 mt-1 flex items-center">
-					<p data-testid="product-rating" className="hidden">
-						{rating}
-					</p>
+					<p data-testid="product-rating">{Math.round(rating as number).toFixed(0)}</p>
 					<Star className={clsx(rating >= 1 ? activeClassName : className)} />
 					<Star className={clsx(rating >= 2 ? activeClassName : className)} />
 					<Star className={clsx(rating >= 3 ? activeClassName : className)} />
