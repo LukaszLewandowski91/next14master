@@ -65,7 +65,7 @@ export const Nav = async () => {
 					<div>
 						<SignedIn>
 							{/* <UserButton userProfileMode="navigation" appearance={clerkAppearance} /> */}
-							<UserButton userProfileMode="navigation" />
+							<UserButton userProfileMode="navigation" afterSignOutUrl="/" />
 						</SignedIn>
 						<SignedOut>
 							<SignInButton />
