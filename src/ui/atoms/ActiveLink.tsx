@@ -22,10 +22,16 @@ export const ActiveLink = ({
 	const pathname = usePathname();
 	const matchedPath = href;
 
+	// const isActive =
+	// 	(matchedPath &&
+	// 		pathname &&
+	// 		(exact ? pathname === matchedPath : pathname.startsWith(matchedPath))) ||
+	// 	false;
+
 	const isActive =
 		(matchedPath &&
 			pathname &&
-			(exact ? pathname === matchedPath : pathname.startsWith(matchedPath))) ||
+			(exact ? matchedPath.includes(pathname) : pathname.startsWith(matchedPath))) ||
 		false;
 
 	return (

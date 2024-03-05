@@ -25,8 +25,10 @@ export const generateMetadata = async ({
 
 export default async function CategoriesPage({
 	params,
+	searchParams,
 }: {
 	params: { category: string; pageNumber: string };
+	searchParams: { orderBy: string; order: string };
 }) {
 	const products = await getProductsByCategorySlug(params.category);
 	if (!products) {
@@ -45,7 +47,11 @@ export default async function CategoriesPage({
 					parseInt(params.pageNumber) * 4,
 				)}
 			/>
-			<Pagination numberOfPages={numberOfPages} href={`categories/${params.category}`} />
+			<Pagination
+				numberOfPages={numberOfPages}
+				href={`categories/${params.category}`}
+				searchParams={searchParams}
+			/>
 		</>
 	);
 }

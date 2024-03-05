@@ -27,7 +27,7 @@ export default async function ProductsPagePagination({
 		<>
 			<Sorting pageNumber={params.pageNumber} />
 			<ProductList products={products.data} />
-			<Pagination numberOfPages={numberOfPages} href="products" />
+			<Pagination numberOfPages={numberOfPages} href="products" searchParams={searchParams} />
 		</>
 	);
 }
