@@ -93,6 +93,7 @@ export type MutationCartChangeItemQuantityArgs = {
 
 export type MutationCartCompleteArgs = {
   cartId: Scalars['ID']['input'];
+  userEmail: Scalars['String']['input'];
 };
 
 
@@ -331,6 +332,21 @@ export type CollectionsGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CollectionsGetListQuery = { collections: { data: Array<{ name: string, slug: string }> } };
 
+export type OrdersCreateMutationVariables = Exact<{
+  cartId: Scalars['ID']['input'];
+  email: Scalars['String']['input'];
+}>;
+
+
+export type OrdersCreateMutation = { cartComplete: { id: string } };
+
+export type OrdersGetByEmailQueryVariables = Exact<{
+  email: Scalars['String']['input'];
+}>;
+
+
+export type OrdersGetByEmailQuery = { orders: { data: Array<{ id: string, lines: unknown, status: OrderStatus, totalAmount: number }>, meta: { count: number, total: number } } };
+
 export type ProductGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
@@ -513,6 +529,29 @@ export const CollectionsGetListDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CollectionsGetListQuery, CollectionsGetListQueryVariables>;
+export const OrdersCreateDocument = new TypedDocumentString(`
+    mutation ordersCreate($cartId: ID!, $email: String!) {
+  cartComplete(cartId: $cartId, userEmail: $email) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<OrdersCreateMutation, OrdersCreateMutationVariables>;
+export const OrdersGetByEmailDocument = new TypedDocumentString(`
+    query OrdersGetByEmail($email: String!) {
+  orders(email: $email) {
+    data {
+      id
+      lines
+      status
+      totalAmount
+    }
+    meta {
+      count
+      total
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<OrdersGetByEmailQuery, OrdersGetByEmailQueryVariables>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID!) {
   product(id: $id) {

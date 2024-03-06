@@ -4,9 +4,11 @@ import { revalidateTag } from "next/cache";
 import Stripe from "stripe";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { currentUser } from "@clerk/nextjs";
 import { executeGraphQL } from "@/api/graphqlApi";
 import { CartRemoveProductDocument, CartSetProductQuantityDocument } from "@/gql/graphql";
 import { getCartFromCookies } from "@/api/cart";
+import { createOrder } from "@/api/orders";
 
 export const removeItem = async (cartId: string, productId: string) => {
 	await executeGraphQL({
@@ -33,6 +35,13 @@ export async function handlePaymentAction() {
 	}
 	const cart = await getCartFromCookies();
 	if (!cart) {
+		return;
+	}
+
+	const user = await currentUser();
+
+	if (!user) {
+		redirect("/sign-in");
 		return;
 	}
 
@@ -74,6 +83,8 @@ export async function handlePaymentAction() {
 		throw new Error("Something went wrong with the payment session");
 	}
 
+	await createOrder(cart.id, user.emailAddresses[0]?.emailAddress as string);
 	cookies().set("cartId", "");
+
 	redirect(checkoutSession.url);
 }

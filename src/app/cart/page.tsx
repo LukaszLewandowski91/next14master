@@ -1,4 +1,7 @@
 // import Link from "next/link";
+import { currentUser } from "@clerk/nextjs";
+import Link from "next/link";
+import { type Route } from "next";
 import { getCartFromCookies } from "@/api/cart";
 import { formatMoney } from "@/utils";
 import { ChangeQuantity } from "@/ui/atoms/ChangeQuantity";
@@ -6,6 +9,7 @@ import { RemoveButton } from "@/ui/atoms/RemoveButton";
 import { handlePaymentAction } from "@/app/cart/actions";
 
 export default async function CartPage() {
+	const user = await currentUser();
 	const cart = await getCartFromCookies();
 
 	if (!cart) {
@@ -51,14 +55,20 @@ export default async function CartPage() {
 						})}
 					</tbody>
 				</table>
-				<form action={handlePaymentAction}>
-					<button
-						type="submit"
-						className="mt-4 w-full max-w-xs rounded-md border bg-slate-950 py-2 text-white shadow-sm transition-colors hover:bg-slate-800 "
-					>
-						Pay
-					</button>
-				</form>
+				{user === null ? (
+					<div className="mt-4">
+						Please <Link href={"/sign-in" as Route}>sign in</Link> to continue
+					</div>
+				) : (
+					<form action={handlePaymentAction}>
+						<button
+							type="submit"
+							className="mt-4 w-full max-w-xs rounded-md border bg-slate-950 py-2 text-white shadow-sm transition-colors hover:bg-slate-800 "
+						>
+							Pay
+						</button>
+					</form>
+				)}
 			</div>
 		);
 	}

@@ -1,4 +1,5 @@
 /// <reference types="stripe-event-types" />
+
 import { type NextRequest } from "next/server";
 import Stripe from "stripe";
 
