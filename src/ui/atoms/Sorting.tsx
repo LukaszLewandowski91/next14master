@@ -1,5 +1,5 @@
 "use client";
-// import clsx from "clsx";
+import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -50,8 +50,8 @@ export const Sorting = ({ pageNumber }: { pageNumber: string }) => {
 						aria-labelledby="menu-button"
 						tabIndex={-1}
 					>
-						{/* <div className={clsx("py-1", isClicked ? "" : "hidden")} role="none"> */}
-						<div className="py-1" role="none">
+						<div className={clsx("py-1", isClicked ? "" : "hidden")} role="none">
+							{/* <div className="py-1" role="none"> */}
 							<button
 								className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
 								role="menuitem"

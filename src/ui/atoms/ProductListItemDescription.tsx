@@ -30,7 +30,9 @@ export const ProductListItemDescription = ({
 			</div>
 			{rating && (
 				<div className="mb-3 mt-1 flex items-center">
-					<p data-testid="product-rating">{rating}</p>
+					<p data-testid="product-rating" className="hidden">
+						{rating}
+					</p>
 					<Star className={clsx(rating >= 1 ? activeClassName : className)} />
 					<Star className={clsx(rating >= 2 ? activeClassName : className)} />
 					<Star className={clsx(rating >= 3 ? activeClassName : className)} />
